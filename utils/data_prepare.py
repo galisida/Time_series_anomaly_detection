@@ -55,7 +55,7 @@ def get_data(input_window, output_window, device='cpu'):
 # TODO(done): add input_window
 def get_batch(source, i, batch_size, input_window):
     seq_len = min(batch_size, len(source) - 1 - i)
-    data = source[i:i + seq_len]
+    data = source[i:i + seq_len]  # 这里的sql_len是指source的seq_len, 其实应该还是batch_size
     input = torch.stack(torch.stack([item[0] for item in data]).chunk(input_window, 1))  # 1 is feature size
     target = torch.stack(torch.stack([item[1] for item in data]).chunk(input_window, 1))
     return input, target

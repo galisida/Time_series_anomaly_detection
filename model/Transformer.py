@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from MODEL.model.PositionalEncoding import PositionalEncoding
+from model.PositionalEncoding import PositionalEncoding
 
 class TransAm(nn.Module):
     def __init__(self, feature_size=250, num_layers=1, dropout=0.1):

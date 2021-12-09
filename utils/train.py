@@ -2,12 +2,12 @@ import math
 import time
 
 import torch
-from MODEL.utils.data_prepare import get_batch
+from utils.data_prepare import get_batch
 
 
 # TODO(done): 实例化model并传入, optimizer, criterion, scheduler, epoch, batch_size
 def train(train_data, input_window, model, optimizer, criterion, scheduler, epoch=100, batch_size=10):
-    model.train() # Turn on the train mode \o/
+    model.train()  # Turn on the train mode \o/
     total_loss = 0.
     start_time = time.time()
 
@@ -28,7 +28,7 @@ def train(train_data, input_window, model, optimizer, criterion, scheduler, epoc
             print('| epoch {:3d} | {:5d}/{:5d} batches | '
                   'lr {:02.6f} | {:5.2f} ms | '
                   'loss {:5.5f} | ppl {:8.2f}'.format(
-                    epoch, batch, len(train_data) // batch_size, scheduler.get_lr()[0],
+                    epoch, batch, len(train_data) // batch_size, scheduler.get_last_lr()[0],
                     elapsed * 1000 / log_interval,
                     cur_loss, math.exp(cur_loss)))
             total_loss = 0

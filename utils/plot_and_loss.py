@@ -1,7 +1,7 @@
 import torch
 import os
 from matplotlib import pyplot as plt
-from MODEL.utils.data_prepare import get_batch
+from utils.data_prepare import get_batch
 
 
 # TODO(done): add criterion
