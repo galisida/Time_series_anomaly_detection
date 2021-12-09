@@ -41,7 +41,7 @@ def parse_args():
 # tgt = torch.rand((20, 32, 512)) # (T,N,E)
 # out = transformer_model(src, tgt)
 
-weight_path = "weights/best_model"
+# weight_path = "weights/best_model"
 
 
 def main(args):

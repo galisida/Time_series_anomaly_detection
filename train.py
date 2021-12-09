@@ -80,7 +80,7 @@ def main(args):
         epoch_start_time = time.time()
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
-        if epoch % 1 == 0:
+        if epoch % 10 == 0:
             val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window)
             predict_future(model, val_data, 200, input_window)
             save_path = "weights/" + present + "/trained-for-" + str(epoch) + "-ecpoch.pth"
@@ -90,7 +90,7 @@ def main(args):
 
         print('-' * 89)
         print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.5f} | valid ppl {:8.2f}'.format(epoch, (
-                time.time() - epoch_start_time), math.exp(val_loss)))
+                    time.time() - epoch_start_time), val_loss, math.exp(val_loss)))
         print('-' * 89)
 
         if val_loss < best_val_loss:
