@@ -37,10 +37,13 @@ def parse_args():
 if not os.path.exists("weights"):
     os.mkdir("weights")
 
-# 格式化成2016-03-20 11:45:39形式
-present = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-if not os.path.exists("weights/" + present):
-    os.mkdir("weights/" + present)
+# 格式化成2016-03-20_11:45:39形式
+present = time.strftime("%Y_%m_%d %H_%M_%S", time.localtime())
+logDir = os.getcwd() + os.sep + 'weights' + os.sep + present
+print(logDir)
+
+if not os.path.exists(os.getcwd() + os.sep +  "weights" + os.sep + present):
+    os.mkdir(logDir)
 
 # S is the source sequence length
 # T is the target sequence length
@@ -83,7 +86,7 @@ def main(args):
         if epoch % 10 == 0:
             val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window)
             predict_future(model, val_data, 200, input_window)
-            save_path = "weights/" + present + "/trained-for-" + str(epoch) + "-ecpoch.pth"
+            save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)
         else:
             val_loss = evaluate(model, val_data, criterion, input_window)
@@ -96,7 +99,7 @@ def main(args):
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             best_model = model
-            save_path = "weights/best_model.pth"
+            save_path = "weights" + os.sep + "best_model.pth"
             torch.save(model.state_dict(), save_path)
             # print("save successfully")
 
