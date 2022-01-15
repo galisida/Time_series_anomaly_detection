@@ -1,0 +1,149 @@
+
+wandb: Network error resolved after 0:00:08.319515, resuming normal operation.
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_01_15 13_46_26
+| epoch   1 |    49/  249 batches | lr 0.005000 | 301.98 ms | loss 5.48643 | ppl   241.39
+| epoch   1 |    98/  249 batches | lr 0.005000 | 331.76 ms | loss 0.08547 | ppl     1.09
+| epoch   1 |   147/  249 batches | lr 0.005000 | 324.88 ms | loss 0.04697 | ppl     1.05
+| epoch   1 |   196/  249 batches | lr 0.005000 | 324.26 ms | loss 0.05766 | ppl     1.06
+| epoch   1 |   245/  249 batches | lr 0.005000 | 308.47 ms | loss 0.04400 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time: 85.05s | valid loss 0.04565 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch   2 |    49/  249 batches | lr 0.004750 | 311.64 ms | loss 0.05419 | ppl     1.06
+| epoch   2 |    98/  249 batches | lr 0.004750 | 305.52 ms | loss 0.07099 | ppl     1.07
+| epoch   2 |   147/  249 batches | lr 0.004750 | 313.59 ms | loss 0.04673 | ppl     1.05
+| epoch   2 |   196/  249 batches | lr 0.004750 | 302.12 ms | loss 0.03820 | ppl     1.04
+| epoch   2 |   245/  249 batches | lr 0.004750 | 297.17 ms | loss 0.03790 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time: 81.89s | valid loss 0.05312 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch   3 |    49/  249 batches | lr 0.004513 | 304.66 ms | loss 0.04741 | ppl     1.05
+| epoch   3 |    98/  249 batches | lr 0.004513 | 301.59 ms | loss 0.04630 | ppl     1.05
+| epoch   3 |   147/  249 batches | lr 0.004513 | 299.94 ms | loss 0.03872 | ppl     1.04
+| epoch   3 |   196/  249 batches | lr 0.004513 | 300.88 ms | loss 0.03587 | ppl     1.04
+| epoch   3 |   245/  249 batches | lr 0.004513 | 302.55 ms | loss 0.03805 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time: 80.79s | valid loss 0.04621 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch   4 |    49/  249 batches | lr 0.004287 | 314.60 ms | loss 0.04585 | ppl     1.05
+| epoch   4 |    98/  249 batches | lr 0.004287 | 304.73 ms | loss 0.04225 | ppl     1.04
+| epoch   4 |   147/  249 batches | lr 0.004287 | 304.18 ms | loss 0.03856 | ppl     1.04
+| epoch   4 |   196/  249 batches | lr 0.004287 | 306.54 ms | loss 0.03616 | ppl     1.04
+| epoch   4 |   245/  249 batches | lr 0.004287 | 306.52 ms | loss 0.03636 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time: 82.39s | valid loss 0.04520 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch   5 |    49/  249 batches | lr 0.004073 | 356.78 ms | loss 0.04353 | ppl     1.04
+| epoch   5 |    98/  249 batches | lr 0.004073 | 360.41 ms | loss 0.04133 | ppl     1.04
+| epoch   5 |   147/  249 batches | lr 0.004073 | 364.94 ms | loss 0.03837 | ppl     1.04
+| epoch   5 |   196/  249 batches | lr 0.004073 | 373.41 ms | loss 0.03779 | ppl     1.04
+| epoch   5 |   245/  249 batches | lr 0.004073 | 369.03 ms | loss 0.03709 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time: 97.96s | valid loss 0.05014 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch   6 |    49/  249 batches | lr 0.003869 | 377.44 ms | loss 0.04211 | ppl     1.04
+| epoch   6 |    98/  249 batches | lr 0.003869 | 411.36 ms | loss 0.04200 | ppl     1.04
+| epoch   6 |   147/  249 batches | lr 0.003869 | 380.38 ms | loss 0.03877 | ppl     1.04
+| epoch   6 |   196/  249 batches | lr 0.003869 | 387.52 ms | loss 0.03709 | ppl     1.04
+| epoch   6 |   245/  249 batches | lr 0.003869 | 395.55 ms | loss 0.03995 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time: 104.19s | valid loss 0.05341 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch   7 |    49/  249 batches | lr 0.003675 | 394.93 ms | loss 0.04292 | ppl     1.04
+| epoch   7 |    98/  249 batches | lr 0.003675 | 385.16 ms | loss 0.04209 | ppl     1.04
+| epoch   7 |   147/  249 batches | lr 0.003675 | 383.01 ms | loss 0.04046 | ppl     1.04
+| epoch   7 |   196/  249 batches | lr 0.003675 | 383.95 ms | loss 0.03785 | ppl     1.04
+| epoch   7 |   245/  249 batches | lr 0.003675 | 373.64 ms | loss 0.03926 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time: 102.63s | valid loss 0.06030 | valid ppl     1.06
+-----------------------------------------------------------------------------------------
+| epoch   8 |    49/  249 batches | lr 0.003492 | 386.64 ms | loss 0.04968 | ppl     1.05
+| epoch   8 |    98/  249 batches | lr 0.003492 | 383.88 ms | loss 0.04853 | ppl     1.05
+| epoch   8 |   147/  249 batches | lr 0.003492 | 384.36 ms | loss 0.03957 | ppl     1.04
+| epoch   8 |   196/  249 batches | lr 0.003492 | 384.29 ms | loss 0.04302 | ppl     1.04
+| epoch   8 |   245/  249 batches | lr 0.003492 | 406.03 ms | loss 0.04047 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time: 103.67s | valid loss 0.06288 | valid ppl     1.06
+-----------------------------------------------------------------------------------------
+| epoch   9 |    49/  249 batches | lr 0.003317 | 422.12 ms | loss 0.05404 | ppl     1.06
+| epoch   9 |    98/  249 batches | lr 0.003317 | 413.09 ms | loss 0.04713 | ppl     1.05
+| epoch   9 |   147/  249 batches | lr 0.003317 | 419.74 ms | loss 0.04054 | ppl     1.04
+| epoch   9 |   196/  249 batches | lr 0.003317 | 425.80 ms | loss 0.04137 | ppl     1.04
+| epoch   9 |   245/  249 batches | lr 0.003317 | 423.91 ms | loss 0.03974 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time: 111.75s | valid loss 0.06268 | valid ppl     1.06
+-----------------------------------------------------------------------------------------
+| epoch  10 |    49/  249 batches | lr 0.003151 | 428.72 ms | loss 0.06014 | ppl     1.06
+| epoch  10 |    98/  249 batches | lr 0.003151 | 419.97 ms | loss 0.04804 | ppl     1.05
+| epoch  10 |   147/  249 batches | lr 0.003151 | 427.98 ms | loss 0.04766 | ppl     1.05
+| epoch  10 |   196/  249 batches | lr 0.003151 | 421.70 ms | loss 0.04806 | ppl     1.05
+| epoch  10 |   245/  249 batches | lr 0.003151 | 427.93 ms | loss 0.04137 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch  10 | time: 119.97s | valid loss 0.04517 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch  11 |    49/  249 batches | lr 0.002994 | 433.76 ms | loss 0.05611 | ppl     1.06
+| epoch  11 |    98/  249 batches | lr 0.002994 | 440.82 ms | loss 0.04739 | ppl     1.05
+| epoch  11 |   147/  249 batches | lr 0.002994 | 426.65 ms | loss 0.04610 | ppl     1.05
+| epoch  11 |   196/  249 batches | lr 0.002994 | 430.33 ms | loss 0.04852 | ppl     1.05
+| epoch  11 |   245/  249 batches | lr 0.002994 | 429.60 ms | loss 0.04352 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch  11 | time: 114.72s | valid loss 0.04776 | valid ppl     1.05
+-----------------------------------------------------------------------------------------
+| epoch  12 |    49/  249 batches | lr 0.002844 | 444.59 ms | loss 0.05181 | ppl     1.05
+| epoch  12 |    98/  249 batches | lr 0.002844 | 431.32 ms | loss 0.04978 | ppl     1.05
+| epoch  12 |   147/  249 batches | lr 0.002844 | 433.81 ms | loss 0.04368 | ppl     1.04
+| epoch  12 |   196/  249 batches | lr 0.002844 | 433.52 ms | loss 0.04380 | ppl     1.04
+| epoch  12 |   245/  249 batches | lr 0.002844 | 431.53 ms | loss 0.04401 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch  12 | time: 115.37s | valid loss 0.05411 | valid ppl     1.06
+-----------------------------------------------------------------------------------------
+| epoch  13 |    49/  249 batches | lr 0.002702 | 473.03 ms | loss 0.05561 | ppl     1.06
+| epoch  13 |    98/  249 batches | lr 0.002702 | 462.34 ms | loss 0.04541 | ppl     1.05
+| epoch  13 |   147/  249 batches | lr 0.002702 | 469.63 ms | loss 0.04524 | ppl     1.05
+| epoch  13 |   196/  249 batches | lr 0.002702 | 462.46 ms | loss 0.04101 | ppl     1.04
+| epoch  13 |   245/  249 batches | lr 0.002702 | 468.37 ms | loss 0.04013 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch  13 | time: 123.29s | valid loss 0.03962 | valid ppl     1.04
+-----------------------------------------------------------------------------------------
+| epoch  14 |    49/  249 batches | lr 0.002567 | 474.56 ms | loss 0.04554 | ppl     1.05
+| epoch  14 |    98/  249 batches | lr 0.002567 | 482.73 ms | loss 0.04173 | ppl     1.04
+| epoch  14 |   147/  249 batches | lr 0.002567 | 490.15 ms | loss 0.03939 | ppl     1.04
+| epoch  14 |   196/  249 batches | lr 0.002567 | 484.59 ms | loss 0.03684 | ppl     1.04
+| epoch  14 |   245/  249 batches | lr 0.002567 | 488.91 ms | loss 0.03766 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch  14 | time: 127.96s | valid loss 0.03562 | valid ppl     1.04
+-----------------------------------------------------------------------------------------
+| epoch  15 |    49/  249 batches | lr 0.002438 | 483.12 ms | loss 0.04365 | ppl     1.04
+| epoch  15 |    98/  249 batches | lr 0.002438 | 508.23 ms | loss 0.04107 | ppl     1.04
+| epoch  15 |   147/  249 batches | lr 0.002438 | 527.46 ms | loss 0.03936 | ppl     1.04
+| epoch  15 |   196/  249 batches | lr 0.002438 | 536.80 ms | loss 0.03627 | ppl     1.04
+| epoch  15 |   245/  249 batches | lr 0.002438 | 525.63 ms | loss 0.03720 | ppl     1.04
+-----------------------------------------------------------------------------------------
+| end of epoch  15 | time: 136.65s | valid loss 0.03553 | valid ppl     1.04
+-----------------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "train.py", line 133, in <module>
+    main(args)
+  File "train.py", line 95, in main
+    train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\train.py", line 19, in train
+    output = model(data)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "D:\PythonProject\Time_series_anomaly_detection\model\Transformer.py", line 29, in forward
+    output = self.transformer_encoder(src, self.src_mask)  # , self.src_mask)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\transformer.py", line 181, in forward
+    output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\transformer.py", line 297, in forward
+    src2 = self.linear2(self.dropout(self.activation(self.linear1(src))))
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\dropout.py", line 58, in forward
+    return F.dropout(input, self.p, self.training, self.inplace)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\functional.py", line 973, in dropout
+    else _VF.dropout(input, p, training))
+KeyboardInterrupt

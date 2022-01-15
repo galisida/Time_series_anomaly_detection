@@ -2,6 +2,8 @@ import math
 import time
 
 import torch
+import wandb
+
 from utils.data_prepare import get_batch
 
 
@@ -17,6 +19,13 @@ def train(train_data, input_window, model, optimizer, criterion, scheduler, epoc
         output = model(data)
         loss = criterion(output, targets)
         loss.backward()
+
+        wandb.log({"loss": loss})
+
+        # Optional
+        wandb.watch(model)
+
+
         torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)
         optimizer.step()
 

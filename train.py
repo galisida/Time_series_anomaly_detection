@@ -13,6 +13,17 @@ from utils.reconstruct import predict_future
 from utils.eval import evaluate
 
 
+import wandb
+
+wandb.init(project="my-test-project", entity="cocoshe")
+
+wandb.config = {
+  "learning_rate": 0.001,
+  "epochs": 100,
+  "batch_size": 128
+}
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train.')
