@@ -29,6 +29,7 @@ def get_data(input_window, output_window, device='cpu'):
     from pandas import read_csv
     # series = read_csv('dataset/daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
     series = read_csv('dataset/test.CSV')
+    series = read_csv('dataset/all_data.csv')
     series = series.fillna(0)
     series = series['concentration']
     print("series: ", series)
@@ -37,9 +38,10 @@ def get_data(input_window, output_window, device='cpu'):
     amplitude = scaler.fit_transform(series.to_numpy().reshape(-1, 1)).reshape(-1)
     # amplitude = scaler.fit_transform(amplitude.reshape(-1, 1)).reshape(-1)
 
-    sampels = 2600
-    train_data = amplitude[:sampels]
-    test_data = amplitude[sampels:]
+    # sampels = 2600
+    # train_data = amplitude[:sampels]
+    # test_data = amplitude[sampels:]
+    train_data = test_data = amplitude
 
     # convert our train data into a pytorch train tensor
     train_tensor = torch.FloatTensor(train_data).view(-1)
