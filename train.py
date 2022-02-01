@@ -13,21 +13,21 @@ from utils.reconstruct import predict_future
 from utils.eval import evaluate
 
 
-# import wandb
-#
-# wandb.init(project="my-test-project", entity="cocoshe")
-#
-# wandb.config = {
-#   "learning_rate": 0.001,
-#   "epochs": 100,
-#   "batch_size": 128
-# }
+import wandb
+
+wandb.init(project="my-test-project", entity="cocoshe")
+
+wandb.config = {
+  "learning_rate": 0.05,
+  "epochs": 100,
+  "batch_size": 32
+}
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train.')
-    parser.add_argument('--lr', type=float, default=0.005, help='Initial learning rate.')
+    parser.add_argument('--lr', type=float, default=0.05, help='Initial learning rate.')
     parser.add_argument('--nb_heads', type=int, default=8, help='Number of head attentions.')
     parser.add_argument('--dropout', type=float, default=0.1, help='Dropout rate.')
     parser.add_argument('--input_window', type=int, default=100, help='Number of input steps.')
@@ -84,7 +84,7 @@ def main(args):
     # lr = 0.005
     # optimizer = torch.optim.SGD(model.parameters(), lr=lr)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.95)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 10, gamma=0.95)
 
     best_val_loss = float("inf")
     # epochs = 100  # The number of epochs

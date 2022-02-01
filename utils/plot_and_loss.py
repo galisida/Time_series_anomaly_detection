@@ -2,7 +2,7 @@ import torch
 import os
 from matplotlib import pyplot as plt
 from utils.data_prepare import get_batch
-
+import wandb
 
 # TODO(done): add criterion
 def plot_and_loss(eval_model, data_source, epoch, criterion, input_window):
@@ -27,14 +27,15 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window):
     plt.plot(test_result, color="red")
 
 
-    plt.plot(test_result - truth, color="green")
+    # plt.plot(test_result - truth, color="green")
+    wandb.log({"test_result - truth": (test_result - truth)})
     plt.grid(True, which='both')
     plt.axhline(y=0, color='k')
 
     if not os.path.exists("../graph"):
         os.mkdir("../graph")
 
-    plt.savefig('graph/transformer-epoch%d.png' % epoch)
+    plt.savefig('graph/transformer-epoch%d_dim1.png' % epoch)
     plt.close()
 
     return total_loss / i
