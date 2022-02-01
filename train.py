@@ -13,15 +13,15 @@ from utils.reconstruct import predict_future
 from utils.eval import evaluate
 
 
-import wandb
-
-wandb.init(project="my-test-project", entity="cocoshe")
-
-wandb.config = {
-  "learning_rate": 0.001,
-  "epochs": 100,
-  "batch_size": 128
-}
+# import wandb
+#
+# wandb.init(project="my-test-project", entity="cocoshe")
+#
+# wandb.config = {
+#   "learning_rate": 0.001,
+#   "epochs": 100,
+#   "batch_size": 128
+# }
 
 
 def parse_args():
@@ -33,7 +33,7 @@ def parse_args():
     parser.add_argument('--input_window', type=int, default=100, help='Number of input steps.')
     parser.add_argument('--output_window', type=int, default=1, help='Number of prediction steps, '
                                                                      'in this model its fixed to one.')
-    parser.add_argument('--batch_size', type=int, default=10, help='Number of batch_size.')
+    parser.add_argument('--batch_size', type=int, default=32, help='Number of batch_size.')
     parser.add_argument('--model', type=str, default="weights/best_model.pth", help='Load model path.(default: '
                                                                                     'weights/best_model.pth)')
     # parser.add_argument("--config", help="train config file path")

@@ -27,8 +27,11 @@ def get_data(input_window, output_window, device='cpu'):
 
     # loading weather data from a file
     from pandas import read_csv
-    series = read_csv('dataset/daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
-
+    # series = read_csv('dataset/daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
+    series = read_csv('dataset/test.CSV')
+    series = series.fillna(0)
+    series = series['concentration']
+    print("series: ", series)
     # looks like normalizing input values curtial for the model
     scaler = MinMaxScaler(feature_range=(-1, 1))
     amplitude = scaler.fit_transform(series.to_numpy().reshape(-1, 1)).reshape(-1)

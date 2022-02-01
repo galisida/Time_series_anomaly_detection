@@ -21,10 +21,10 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window):
     # test_result = test_result.cpu().numpy() -> no need to detach stuff..
     len(test_result)
 
-    plt.plot(test_result, color="red")
     # plt.plot(truth[:500], color="blue")
     # plt.plot(truth[:1000], color="blue")
     plt.plot(truth, color="blue")
+    plt.plot(test_result, color="red")
 
 
     plt.plot(test_result - truth, color="green")
