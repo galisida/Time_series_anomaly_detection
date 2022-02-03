@@ -1,0 +1,36 @@
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_04 02_54_39
+series:  0      66.25
+1      73.18
+2      79.95
+3      69.91
+4       0.00
+       ...
+194    27.90
+195    50.60
+196    19.60
+197    26.10
+198    31.20
+Name: concentration, Length: 199, dtype: float64
+D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py:17: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  ..\torch\csrc\utils\tensor_new.cpp:201.)
+  return torch.FloatTensor(inout_seq)
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time:  1.30s | valid loss 2.20138
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time:  1.19s | valid loss 2.32883
+-----------------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "train.py", line 133, in <module>
+    main(args)
+  File "train.py", line 95, in main
+    train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\train.py", line 21, in train
+    loss.backward()
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\_tensor.py", line 307, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\autograd\__init__.py", line 156, in backward
+    allow_unreachable=True, accumulate_grad=True)  # allow_unreachable flag
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\wandb_torch.py", line 282, in <lambda>
+    handle = var.register_hook(lambda grad: _callback(grad, log_track))
+KeyboardInterrupt

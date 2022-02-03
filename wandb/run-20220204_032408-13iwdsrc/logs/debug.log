@@ -1,0 +1,23 @@
+2022-02-04 03:24:08,760 INFO    MainThread:19396 [wandb_setup.py:_flush():71] setting env: {}
+2022-02-04 03:24:08,760 INFO    MainThread:19396 [wandb_setup.py:_flush():71] setting login settings: {}
+2022-02-04 03:24:08,761 INFO    MainThread:19396 [wandb_init.py:_log_setup():371] Logging user logs to D:\PythonProject\Time_series_anomaly_detection\wandb\run-20220204_032408-13iwdsrc\logs\debug.log
+2022-02-04 03:24:08,761 INFO    MainThread:19396 [wandb_init.py:_log_setup():372] Logging internal logs to D:\PythonProject\Time_series_anomaly_detection\wandb\run-20220204_032408-13iwdsrc\logs\debug-internal.log
+2022-02-04 03:24:08,761 INFO    MainThread:19396 [wandb_init.py:init():404] calling init triggers
+2022-02-04 03:24:08,761 INFO    MainThread:19396 [wandb_init.py:init():411] wandb.init called with sweep_config: {}
+config: {}
+2022-02-04 03:24:08,762 INFO    MainThread:19396 [wandb_init.py:init():460] starting backend
+2022-02-04 03:24:08,762 INFO    MainThread:19396 [backend.py:_multiprocessing_setup():101] multiprocessing start_methods=spawn, using: spawn
+2022-02-04 03:24:08,771 INFO    MainThread:19396 [backend.py:ensure_launched():216] starting backend process...
+2022-02-04 03:24:08,879 INFO    MainThread:19396 [backend.py:ensure_launched():222] started backend process with pid: 19236
+2022-02-04 03:24:08,880 INFO    MainThread:19396 [wandb_init.py:init():469] backend started and connected
+2022-02-04 03:24:08,882 INFO    MainThread:19396 [wandb_init.py:init():533] updated telemetry
+2022-02-04 03:24:08,989 INFO    MainThread:19396 [wandb_init.py:init():563] communicating current version
+2022-02-04 03:24:10,362 INFO    MainThread:19396 [wandb_init.py:init():568] got version response 
+2022-02-04 03:24:10,362 INFO    MainThread:19396 [wandb_init.py:init():578] communicating run to backend with 30 second timeout
+2022-02-04 03:24:40,377 INFO    MainThread:19396 [interface_shared.py:_communicate_run():313] couldn't get run from backend
+2022-02-04 03:24:40,377 ERROR   MainThread:19396 [wandb_init.py:init():583] backend process timed out
+2022-02-04 03:24:40,377 ERROR   MainThread:19396 [wandb_init.py:init():592] encountered error: Error communicating with wandb process
+try: wandb.init(settings=wandb.Settings(start_method='fork'))
+or:  wandb.init(settings=wandb.Settings(start_method='thread'))
+For more info see: https://docs.wandb.ai/library/init#init-start-error
+2022-02-04 03:24:46,823 INFO    MainThread:19396 [wandb_init.py:teardown():219] tearing down wandb.init

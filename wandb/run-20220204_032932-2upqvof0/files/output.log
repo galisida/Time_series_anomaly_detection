@@ -1,0 +1,29 @@
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_04 03_29_39
+series:  0      66.25
+1      73.18
+2      79.95
+3      69.91
+4       0.00
+       ...
+194    27.90
+195    50.60
+196    19.60
+197    26.10
+198    31.20
+Name: concentration, Length: 199, dtype: float64
+D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py:17: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  ..\torch\csrc\utils\tensor_new.cpp:201.)
+  return torch.FloatTensor(inout_seq)
+Traceback (most recent call last):
+  File "train.py", line 133, in <module>
+    main(args)
+  File "train.py", line 95, in main
+    train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\train.py", line 19, in train
+    output = model(targets, data)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\PythonProject\Time_series_anomaly_detection\model\Transformer.py", line 29, in forward
+    if self.src_mask is None or self.src_mask.size(0) != len(src):
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 1178, in __getattr__
+    type(self).__name__, name))
+AttributeError: 'TransAm' object has no attribute 'src_mask'

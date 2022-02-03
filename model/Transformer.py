@@ -15,6 +15,7 @@ class TransAm(nn.Module):
         self.transformer_decoder = nn.TransformerEncoder(self.decoder_layer, num_layers=num_layers)
         self.decoder1 = nn.Linear(feature_size, feature_size // 2 + 1)
         self.decoder2 = nn.Linear(feature_size // 2 + 1, 1)
+        self.l_relu = nn.LeakyReLU()
         self.init_weights()
 
     def init_weights(self):
@@ -24,7 +25,7 @@ class TransAm(nn.Module):
         self.decoder1.weight.data.uniform_(-initrange, initrange)
         self.decoder2.weight.data.uniform_(-initrange, initrange)
 
-    def forward(self, src):
+    def forward(self, src):  # , tgt)
         if self.src_mask is None or self.src_mask.size(0) != len(src):
             device = src.device
             mask = self._generate_square_subsequent_mask(len(src)).to(device)
@@ -32,7 +33,9 @@ class TransAm(nn.Module):
 
         src = self.pos_encoder(src)
         output = self.transformer_encoder(src, self.src_mask)  # , self.src_mask)
+        # output = self.transformer_decoder(tgt, output)  # , self.src_mask)
         output = self.decoder1(output)
+        output = self.l_relu(output)
         output = self.decoder2(output)
         return output
 
