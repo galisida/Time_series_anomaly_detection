@@ -28,8 +28,9 @@ def get_data(input_window, output_window, device='cpu'):
     # loading weather data from a file
     from pandas import read_csv
     # series = read_csv('dataset/daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
-    series = read_csv('dataset/test.CSV')
-    series = read_csv('dataset/all_data.csv')
+    # series = read_csv('dataset/test.CSV')
+    series = read_csv('dataset/test2.CSV')
+    # series = read_csv('dataset/all_data.csv')
     series = series.fillna(0)
     series = series['concentration']
     print("series: ", series)

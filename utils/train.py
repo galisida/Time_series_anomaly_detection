@@ -30,15 +30,16 @@ def train(train_data, input_window, model, optimizer, criterion, scheduler, epoc
         optimizer.step()
 
         total_loss += loss.item()
-        log_interval = int(len(train_data) / batch_size / 5)
+        # log_interval = int(len(train_data) / batch_size / 5)
+        log_interval = 10
         if batch % log_interval == 0 and batch > 0:
             cur_loss = total_loss / log_interval
             elapsed = time.time() - start_time
             print('| epoch {:3d} | {:5d}/{:5d} batches | '
                   'lr {:02.6f} | {:5.2f} ms | '
-                  'loss {:5.5f} | ppl {:8.2f}'.format(
+                  'loss {:5.5f} '.format(
                     epoch, batch, len(train_data) // batch_size, scheduler.get_last_lr()[0],
                     elapsed * 1000 / log_interval,
-                    cur_loss, math.exp(cur_loss)))
+                    cur_loss))
             total_loss = 0
             start_time = time.time()

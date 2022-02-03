@@ -18,22 +18,22 @@ import wandb
 wandb.init(project="my-test-project", entity="cocoshe")
 
 wandb.config = {
-  "learning_rate": 0.05,
+  "learning_rate": 0.006,
   "epochs": 100,
-  "batch_size": 32
+  "batch_size": 64
 }
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train.')
-    parser.add_argument('--lr', type=float, default=0.05, help='Initial learning rate.')
+    parser.add_argument('--lr', type=float, default=0.006, help='Initial learning rate.')
     parser.add_argument('--nb_heads', type=int, default=8, help='Number of head attentions.')
     parser.add_argument('--dropout', type=float, default=0.1, help='Dropout rate.')
-    parser.add_argument('--input_window', type=int, default=100, help='Number of input steps.')
+    parser.add_argument('--input_window', type=int, default=20, help='Number of input steps.')
     parser.add_argument('--output_window', type=int, default=1, help='Number of prediction steps, '
                                                                      'in this model its fixed to one.')
-    parser.add_argument('--batch_size', type=int, default=32, help='Number of batch_size.')
+    parser.add_argument('--batch_size', type=int, default=64, help='Number of batch_size.')
     parser.add_argument('--model', type=str, default="weights/best_model.pth", help='Load model path.(default: '
                                                                                     'weights/best_model.pth)')
     # parser.add_argument("--config", help="train config file path")
@@ -67,7 +67,7 @@ if not os.path.exists(os.getcwd() + os.sep +  "weights" + os.sep + present):
 
 
 def main(args):
-    # input_window = 100  # number of input steps
+    # input_window = 20  # number of input steps
     # output_window = 1  # number of prediction steps, in this model its fixed to one
     # batch_size = 10
     input_window = args.input_window
@@ -84,7 +84,7 @@ def main(args):
     # lr = 0.005
     # optimizer = torch.optim.SGD(model.parameters(), lr=lr)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 10, gamma=0.95)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 8, gamma=0.95)
 
     best_val_loss = float("inf")
     # epochs = 100  # The number of epochs
@@ -103,8 +103,8 @@ def main(args):
             val_loss = evaluate(model, val_data, criterion, input_window)
 
         print('-' * 89)
-        print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.5f} | valid ppl {:8.2f}'.format(epoch, (
-                    time.time() - epoch_start_time), val_loss, math.exp(val_loss)))
+        print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.5f} '.format(epoch, (
+                    time.time() - epoch_start_time), val_loss))
         print('-' * 89)
 
         if val_loss < best_val_loss:
@@ -112,7 +112,7 @@ def main(args):
             best_model = model
             save_path = "weights" + os.sep + "best_model.pth"
             torch.save(model.state_dict(), save_path)
-            # print("save successfully")
+            print("save successfully")
 
         scheduler.step()
 
