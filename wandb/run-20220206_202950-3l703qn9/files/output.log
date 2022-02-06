@@ -1,0 +1,31 @@
+
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_06 20_29_56
+train.py:86: DtypeWarning: Columns (1,2,3) have mixed types.Specify dtype option on import or set low_memory=False.
+  train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+find port id.
+find polution id.
+find company id.
+       company_id                port_id polution_id       date  concentration  amount
+0  17280000089583  64000000000600100000       w00000 2020-01-01          66.25   870.0
+1  17280000089583  64000000000600100000       w00000 2020-01-02          73.18  1758.0
+2  17280000089583  64000000000600100000       w00000 2020-01-03          79.95  1918.0
+3  17280000089583  64000000000600100000       w00000 2020-01-04          69.91  1678.0
+4  17280000089583  64000000000600100000       w00000 2020-01-05            NaN    74.0
+dim_name:  concentration
+-----------------------------------------------
+series:  0    66.25
+1    73.18
+2    79.95
+3    69.91
+4     0.00
+Name: concentration, dtype: float64
+series.shape:  (5,)
+-----------------------------------------------
+Traceback (most recent call last):
+  File "train.py", line 139, in <module>
+    main(args)
+  File "train.py", line 109, in main
+    val_loss = evaluate(model, val_data, criterion, input_window)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\eval.py", line 16, in evaluate
+    return total_loss / len(data_source)
+ZeroDivisionError: float division by zero

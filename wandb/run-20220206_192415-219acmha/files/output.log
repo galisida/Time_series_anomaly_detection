@@ -1,0 +1,134 @@
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_06 19_24_20
+-----------------------------------------------
+series:  0      29.9
+1      30.6
+2      24.8
+3      37.2
+4      21.0
+       ...
+304    41.7
+305    35.3
+306     0.0
+307    39.8
+308    41.9
+Name: concentration, Length: 309, dtype: float64
+series.shape:  (309,)
+-----------------------------------------------
+D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py:19: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  ..\torch\csrc\utils\tensor_new.cpp:201.)
+  return torch.FloatTensor(inout_seq)
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time:  1.87s | valid loss 0.06743
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time:  1.76s | valid loss 0.02765
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time:  1.77s | valid loss 0.03986
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time:  1.76s | valid loss 0.02734
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time:  1.75s | valid loss 0.02997
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time:  1.79s | valid loss 0.02758
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time:  1.78s | valid loss 0.02902
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time:  1.76s | valid loss 0.03314
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time:  1.73s | valid loss 0.02900
+-----------------------------------------------------------------------------------------
+loss shape:  (307,)
+-----------------------------------------------------------------------------------------
+| end of epoch  10 | time:  3.27s | valid loss 0.03048
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch  11 | time:  1.85s | valid loss 0.02790
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch  12 | time:  1.80s | valid loss 0.02745
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch  13 | time:  1.78s | valid loss 0.03008
+-----------------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "train.py", line 139, in <module>
+    main(args)
+  File "train.py", line 101, in main
+    train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\train.py", line 19, in train
+    output = model(data)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\PythonProject\Time_series_anomaly_detection\model\Transformer.py", line 35, in forward
+    output = self.transformer_encoder(src, self.src_mask)  # , self.src_mask)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\transformer.py", line 198, in forward
+    output = mod(output, src_mask=mask, src_key_padding_mask=src_key_padding_mask)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\transformer.py", line 340, in forward
+    x = self.norm2(x + self._ff_block(x))
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\transformer.py", line 355, in _ff_block
+    x = self.linear2(self.dropout(self.activation(self.linear1(x))))
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\modules\dropout.py", line 58, in forward
+    return F.dropout(input, self.p, self.training, self.inplace)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\torch\nn\functional.py", line 1169, in dropout
+    return _VF.dropout_(input, p, training) if inplace else _VF.dropout(input, p, training)
+KeyboardInterrupt
+Error in atexit._run_exitfuncs:
+Traceback (most recent call last):
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\sdk\wandb_run.py", line 1788, in _atexit_cleanup
+    self._on_finish()
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\sdk\wandb_run.py", line 1936, in _on_finish
+    self._console_stop()  # TODO: there's a race here with jupyter console logging
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\sdk\wandb_run.py", line 1828, in _console_stop
+    self._restore()
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\sdk\wandb_run.py", line 1756, in _restore
+    self._out_redir.uninstall()
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\sdk\lib\redirect.py", line 628, in uninstall
+    self._emulator_write_thread.join(timeout=5)
+  File "D:\miniconda\envs\pytorch\lib\threading.py", line 1048, in join
+    self._wait_for_tstate_lock(timeout=max(timeout, 0))
+  File "D:\miniconda\envs\pytorch\lib\threading.py", line 1060, in _wait_for_tstate_lock
+    elif lock.acquire(block, timeout):
+KeyboardInterrupt
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\sdk\wandb_run.py", line 1792, in _atexit_cleanup
+    wandb.termerror("Control-C detected -- Run data was not synced")
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\errors\term.py", line 63, in termerror
+    **kwargs
+  File "D:\miniconda\envs\pytorch\lib\site-packages\wandb\errors\term.py", line 94, in _log
+    click.echo(line, file=sys.stderr, nl=newline)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\click\utils.py", line 298, in echo
+    file.write(out)  # type: ignore
+  File "D:\miniconda\envs\pytorch\lib\site-packages\click\_compat.py", line 550, in _safe_write
+    return _write(s)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\ansitowin32.py", line 41, in write
+    self.__convertor.write(text)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\ansitowin32.py", line 162, in write
+    self.write_and_convert(text)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\ansitowin32.py", line 188, in write_and_convert
+    self.convert_ansi(*match.groups())
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\ansitowin32.py", line 202, in convert_ansi
+    self.call_win32(command, params)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\ansitowin32.py", line 231, in call_win32
+    func(*args, **kwargs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\winterm.py", line 58, in fore
+    self.set_console(on_stderr=on_stderr)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\winterm.py", line 83, in set_console
+    win32.SetConsoleTextAttribute(handle, attrs)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\colorama\win32.py", line 111, in SetConsoleTextAttribute
+    return _SetConsoleTextAttribute(handle, attrs)

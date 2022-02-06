@@ -1,0 +1,42 @@
+
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_06 19_46_42
+train.py:86: DtypeWarning: Columns (1,2,3) have mixed types.Specify dtype option on import or set low_memory=False.
+  train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+find port id.
+find polution id.
+find company id.
+find dim.
+0      66.25
+1      73.18
+2      79.95
+3      69.91
+4        NaN
+       ...
+670    41.70
+671    35.30
+672     0.00
+673    39.80
+674    41.90
+Name: concentration, Length: 675, dtype: float64
+Traceback (most recent call last):
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\indexes\base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index_class_helper.pxi", line 105, in pandas._libs.index.Int64Engine._check_type
+  File "pandas\_libs\index_class_helper.pxi", line 105, in pandas._libs.index.Int64Engine._check_type
+KeyError: 'date'
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "train.py", line 139, in <module>
+    main(args)
+  File "train.py", line 86, in main
+    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py", line 53, in get_data
+    timestamp = series['date']
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\series.py", line 942, in __getitem__
+    return self._get_value(key)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\series.py", line 1051, in _get_value
+    loc = self.index.get_loc(label)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\indexes\base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: 'date'

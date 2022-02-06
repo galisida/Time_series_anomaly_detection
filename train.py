@@ -41,6 +41,7 @@ def parse_args():
     parser.add_argument('--date_s', type=str, default=None, help='start of the date.')
     parser.add_argument('--date_e', type=str, default=None, help='end of the date.')
     parser.add_argument('--dim', type=str, default=None, help='choose one dim(input dim name).')
+    parser.add_argument('--company_id', type=str, default=None, help='company_id.')
     # parser.add_argument("--config", help="train config file path")
     # parser.add_argument("--seed", type=int, default=None, help="random seed")
     return parser.parse_args()
