@@ -1,0 +1,35 @@
+{
+    "os": "Windows-10-10.0.22000-SP0",
+    "python": "3.7.11",
+    "heartbeatAt": "2022-02-06T13:03:39.906980",
+    "startedAt": "2022-02-06T13:03:37.258158",
+    "docker": null,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [
+        "--port_id",
+        "64000000000600100000 ",
+        "--polution_id",
+        "w00000",
+        "--company_id",
+        "17280000089583",
+        "--dim",
+        "concentration",
+        "--date_s",
+        "1/1/2020",
+        "--date_e",
+        "1/2/2020"
+    ],
+    "state": "running",
+    "program": "train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "git@github.com:cocoshe/Time_series_anomaly_detection.git",
+        "commit": "54e071963e19f229c52d9cdf3352a3099e9996a6"
+    },
+    "email": "1228759711@qq.com",
+    "root": "D:/PythonProject/Time_series_anomaly_detection",
+    "host": "coshe-pc",
+    "username": "\u53f6\u67ef",
+    "executable": "D:\\miniconda\\envs\\pytorch\\python.exe"
+}

@@ -44,16 +44,16 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     res = pd.DataFrame({"date": timestamp.values[:len(truth)], "truth": truth, "test_result": test_result, "loss": test_result - truth})
     if os.path.exists("res") == False:
         os.mkdir("res")
-    res_csv_path = "res/test_loss.csv" + dim
+    res_csv_path = "res/test_loss_" + dim + ".csv"
     with open(res_csv_path, "w") as f:
         res.to_csv(res_csv_path)
 
     plt.grid(True, which='both')
     plt.axhline(y=0, color='k')
+    # plt.xticks(ticks=range(len(truth)), labels=timestamp.values[:len(truth)], rotation=90)
 
     if not os.path.exists("../graph"):
         os.mkdir("../graph")
-
     plt.savefig('graph/transformer-epoch%d_%s.png' % (epoch, dim))
     plt.close()
 
