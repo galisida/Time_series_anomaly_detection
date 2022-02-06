@@ -52,7 +52,7 @@ def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = TransAm().to(device).load_state_dict(torch.load(weight_path))
-    train_data, val_data = get_data(input_window, output_window, device=device)
+    train_data, val_data, timestamp = get_data(args, input_window, output_window, device=device)
 
     criterion = nn.MSELoss()
 
@@ -60,7 +60,7 @@ def main(args):
 
     epoch_start_time = time.time()
 
-    val_loss = plot_and_loss(model, val_data, 1, criterion, input_window)
+    val_loss = plot_and_loss(model, val_data, 1, criterion, input_window, timestamp)
     predict_future(model, val_data, 200, input_window)
     val_loss = evaluate(model, val_data, criterion, input_window)
 

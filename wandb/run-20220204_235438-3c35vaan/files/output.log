@@ -1,0 +1,57 @@
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_04 23_54_45
+series:  0      29.9
+1      30.6
+2      24.8
+3      37.2
+4      21.0
+       ...
+304    41.7
+305    35.3
+306     0.0
+307    39.8
+308    41.9
+Name: concentration, Length: 309, dtype: float64
+D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py:17: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  ..\torch\csrc\utils\tensor_new.cpp:201.)
+  return torch.FloatTensor(inout_seq)
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time:  2.11s | valid loss 2.50519
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time:  2.16s | valid loss 1.16749
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time:  2.16s | valid loss 0.24751
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time:  2.16s | valid loss 0.04569
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time:  2.87s | valid loss 0.04303
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time:  2.34s | valid loss 0.02755
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time:  1.96s | valid loss 0.02910
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time:  2.10s | valid loss 0.02774
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time:  2.20s | valid loss 0.03850
+-----------------------------------------------------------------------------------------
+loss shape:  torch.Size([307])
+Traceback (most recent call last):
+  File "train.py", line 133, in <module>
+    main(args)
+  File "train.py", line 98, in main
+    val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\plot_and_loss.py", line 42, in plot_and_loss
+    with open("res/test_loss.csv", "w") as f:
+PermissionError: [Errno 13] Permission denied: 'res/test_loss.csv'

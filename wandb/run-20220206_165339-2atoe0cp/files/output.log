@@ -1,0 +1,23 @@
+
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_06 16_53_46
+Traceback (most recent call last):
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\indexes\base.py", line 3361, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas\_libs\index.pyx", line 76, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\index.pyx", line 108, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas\_libs\hashtable_class_helper.pxi", line 5198, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas\_libs\hashtable_class_helper.pxi", line 5206, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: None
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "train.py", line 138, in <module>
+    main(args)
+  File "train.py", line 85, in main
+    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py", line 41, in get_data
+    series = series[dim_name]
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\frame.py", line 3458, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\indexes\base.py", line 3363, in get_loc
+    raise KeyError(key) from err
+KeyError: None

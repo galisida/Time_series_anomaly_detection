@@ -1,0 +1,66 @@
+D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py:17: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  ..\torch\csrc\utils\tensor_new.cpp:201.)
+  return torch.FloatTensor(inout_seq)
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_02_06 17_00_35
+series:  0      29.9
+1      30.6
+2      24.8
+3      37.2
+4      21.0
+       ...
+304    41.7
+305    35.3
+306     0.0
+307    39.8
+308    41.9
+Name: concentration, Length: 309, dtype: float64
+-----------------------------------------------------------------------------------------
+| end of epoch   1 | time:  1.74s | valid loss 0.12322
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   2 | time:  1.69s | valid loss 0.03542
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   3 | time:  1.72s | valid loss 0.02744
+-----------------------------------------------------------------------------------------
+save successfully
+-----------------------------------------------------------------------------------------
+| end of epoch   4 | time:  1.71s | valid loss 0.03808
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   5 | time:  1.71s | valid loss 0.05598
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   6 | time:  1.73s | valid loss 0.04255
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   7 | time:  1.66s | valid loss 0.02770
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   8 | time:  1.72s | valid loss 0.03155
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+| end of epoch   9 | time:  1.71s | valid loss 0.02759
+-----------------------------------------------------------------------------------------
+loss shape:  (307, 1)
+Traceback (most recent call last):
+  File "train.py", line 138, in <module>
+    main(args)
+  File "train.py", line 103, in main
+    val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\plot_and_loss.py", line 41, in plot_and_loss
+    res = pd.DataFrame({"date": timestamp.values[:len(truth)], "truth": truth, "test_result": test_result, "loss": test_result - truth})
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\frame.py", line 614, in __init__
+    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\internals\construction.py", line 465, in dict_to_mgr
+    arrays, data_names, index, columns, dtype=dtype, typ=typ, consolidate=copy
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\internals\construction.py", line 124, in arrays_to_mgr
+    arrays = _homogenize(arrays, index, dtype)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\internals\construction.py", line 590, in _homogenize
+    val, index, dtype=dtype, copy=False, raise_cast_failure=False
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\construction.py", line 576, in sanitize_array
+    subarr = _sanitize_ndim(subarr, data, dtype, index, allow_2d=allow_2d)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\construction.py", line 627, in _sanitize_ndim
+    raise ValueError("Data must be 1-dimensional")
+ValueError: Data must be 1-dimensional

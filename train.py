@@ -36,6 +36,11 @@ def parse_args():
     parser.add_argument('--batch_size', type=int, default=64, help='Number of batch_size.')
     parser.add_argument('--model', type=str, default="weights/best_model.pth", help='Load model path.(default: '
                                                                                     'weights/best_model.pth)')
+    parser.add_argument('--port_id', type=str, default=None, help='port_id.')
+    parser.add_argument('--polution_id', type=str, default=None, help='polution_id.')
+    parser.add_argument('--date_s', type=str, default=None, help='start of the date.')
+    parser.add_argument('--date_e', type=str, default=None, help='end of the date.')
+    parser.add_argument('--dim', type=str, default=None, help='choose one dim(input dim name).')
     # parser.add_argument("--config", help="train config file path")
     # parser.add_argument("--seed", type=int, default=None, help="random seed")
     return parser.parse_args()
@@ -77,7 +82,7 @@ def main(args):
     lr = args.lr
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    train_data, val_data = get_data(input_window, output_window, device=device)
+    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
     model = TransAm().to(device)
 
     criterion = nn.MSELoss()
@@ -95,7 +100,7 @@ def main(args):
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
         if epoch % 10 == 0:
-            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window)
+            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler)
             predict_future(model, val_data, 200, input_window)
             save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)
