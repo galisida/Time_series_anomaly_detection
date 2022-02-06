@@ -101,7 +101,7 @@ def main(args):
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
         if epoch % 10 == 0:
-            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler)
+            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim)
             predict_future(model, val_data, 200, input_window)
             save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)
