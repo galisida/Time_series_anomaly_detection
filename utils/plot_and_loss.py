@@ -44,7 +44,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     res = pd.DataFrame({"date": timestamp.values[:len(truth)], "truth": truth, "test_result": test_result, "loss": test_result - truth})
     if os.path.exists("res") == False:
         os.mkdir("res")
-    res_csv_path = "res/test_loss_" + dim + ".csv"
+    res_csv_path = "res/test_loss_" + str(dim) + ".csv"
     with open(res_csv_path, "w") as f:
         res.to_csv(res_csv_path)
 

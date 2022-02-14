@@ -36,6 +36,7 @@ def parse_args():
     parser.add_argument('--batch_size', type=int, default=64, help='Number of batch_size.')
     parser.add_argument('--model', type=str, default="weights/best_model.pth", help='Load model path.(default: '
                                                                                     'weights/best_model.pth)')
+
     parser.add_argument('--port_id', type=str, default=None, help='port_id.')
     parser.add_argument('--polution_id', type=str, default=None, help='polution_id.')
     parser.add_argument('--date_s', type=str, default=None, help='start of the date.')
