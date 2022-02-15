@@ -15,13 +15,13 @@ from utils.eval import evaluate
 
 import wandb
 
-wandb.init(project="my-test-project", entity="cocoshe")
+# wandb.init(project="my-test-project", entity="cocoshe")
 
-wandb.config = {
-  "learning_rate": 0.006,
-  "epochs": 100,
-  "batch_size": 64
-}
+# wandb.config = {
+#   "learning_rate": 0.006,
+#   "epochs": 100,
+#   "batch_size": 64
+# }
 
 
 def parse_args():
@@ -73,7 +73,8 @@ if not os.path.exists(os.getcwd() + os.sep +  "weights" + os.sep + present):
 # out = transformer_model(src, tgt)
 
 
-def main(args):
+def train_(args, req_json):
+# def main(args):
     # input_window = 20  # number of input steps
     # output_window = 1  # number of prediction steps, in this model its fixed to one
     # batch_size = 10
@@ -82,6 +83,23 @@ def main(args):
     batch_size = args.batch_size
     epochs = args.epochs
     lr = args.lr
+
+    # web 版本的参数
+    if req_json['port_id'] is not None:
+        args.port_id = req_json['port_id']
+    if req_json['polution_id'] is not None:
+        args.polution_id = req_json['polution_id']
+    if req_json['date_s'] is not None:
+        args.date_s = req_json['date_s']
+    if req_json['date_e'] is not None:
+        args.date_e = req_json['date_e']
+    if req_json['dim'] is not None:
+        args.dim = req_json['dim']
+    if req_json['company_id'] is not None:
+        args.company_id = req_json['company_id']
+
+
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
@@ -134,7 +152,9 @@ def main(args):
     # torch.save(model.state_dict(), save_path)
     # print("save successfully")
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+def run_model(req_json):
     args = parse_args()
     # print(args)
-    main(args)
+    train_(args, req_json)
+    # main(args)

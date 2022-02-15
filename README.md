@@ -25,6 +25,11 @@ python train.py --port_id 64000000000600100000 --polution_id w00000 --company_id
 
 ```
 
+```shell
+# web version:
+http://localhost:5000/run
+```
+
 ## Log
 
 

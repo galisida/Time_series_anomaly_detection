@@ -20,10 +20,10 @@ def train(train_data, input_window, model, optimizer, criterion, scheduler, epoc
         loss = criterion(output, targets)
         loss.backward()
 
-        wandb.log({"loss": loss})
-
+        # wandb.log({"loss": loss})
+        #
         # Optional
-        wandb.watch(model)
+        # wandb.watch(model)
 
 
         torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)

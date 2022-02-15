@@ -37,7 +37,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
 
     # plt.plot(test_result - truth, color="green")
-    wandb.log({"test_result - truth": (test_result - truth)})
+    # wandb.log({"test_result - truth": (test_result - truth)})
 
     # save loss
     print("loss shape: ", (test_result - truth).shape)
@@ -52,8 +52,8 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     plt.axhline(y=0, color='k')
     # plt.xticks(ticks=range(len(truth)), labels=timestamp.values[:len(truth)], rotation=90)
 
-    if not os.path.exists("../graph"):
-        os.mkdir("../graph")
+    if not os.path.exists("graph"):
+        os.mkdir("graph")
     plt.savefig('graph/transformer-epoch%d_%s.png' % (epoch, dim))
     plt.close()
 
