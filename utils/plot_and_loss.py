@@ -57,4 +57,4 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     plt.savefig('graph/transformer-epoch%d_%s.png' % (epoch, dim))
     plt.close()
 
-    return total_loss / i
+    return total_loss / i, res

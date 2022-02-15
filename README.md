@@ -7,6 +7,11 @@ Based on construction Of time series
 
 
 ## Quick Start
+```shell
+# generate a requirement.txt file
+pip install pipreqs
+pipreqs ./ --encoding utf-8 --force
+```
 
 1. first, run the following command to install some essential independence
 ```

@@ -26,7 +26,7 @@ import wandb
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=100, help='Number of epochs to train.')
+    parser.add_argument('--epochs', type=int, default=85, help='Number of epochs to train.')
     parser.add_argument('--lr', type=float, default=0.006, help='Initial learning rate.')
     parser.add_argument('--nb_heads', type=int, default=8, help='Number of head attentions.')
     parser.add_argument('--dropout', type=float, default=0.1, help='Dropout rate.')
@@ -120,7 +120,7 @@ def train_(args, req_json):
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
         if epoch % 10 == 0:
-            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim)
+            val_loss, res = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim)
             predict_future(model, val_data, 200, input_window)
             save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)
@@ -141,6 +141,8 @@ def train_(args, req_json):
 
         scheduler.step()
 
+    res['date'] = res['date'].astype(str)
+    return res
     # src = torch.rand(input_window, batch_size, 1) # (source sequence length,batch size,feature number)
     # out = model(src)
     #
@@ -156,5 +158,6 @@ def train_(args, req_json):
 def run_model(req_json):
     args = parse_args()
     # print(args)
-    train_(args, req_json)
+    res = train_(args, req_json)
     # main(args)
+    return res

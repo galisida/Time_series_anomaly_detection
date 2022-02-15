@@ -60,7 +60,7 @@ def main(args):
 
     epoch_start_time = time.time()
 
-    val_loss = plot_and_loss(model, val_data, 1, criterion, input_window, timestamp)
+    val_loss, res = plot_and_loss(model, val_data, 1, criterion, input_window, timestamp)
     predict_future(model, val_data, 200, input_window)
     val_loss = evaluate(model, val_data, criterion, input_window)
 
