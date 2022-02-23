@@ -13,8 +13,8 @@ from utils.plot_and_loss import plot_and_loss
 from utils.reconstruct import predict_future
 from utils.eval import evaluate
 
-
 import wandb
+
 
 # wandb.init(project="my-test-project", entity="cocoshe")
 
@@ -50,7 +50,6 @@ def parse_args():
     return parser.parse_args()
 
 
-
 # torch.manual_seed(0)
 # np.random.seed(0)
 
@@ -62,8 +61,9 @@ present = time.strftime("%Y_%m_%d %H_%M_%S", time.localtime())
 logDir = os.getcwd() + os.sep + 'weights' + os.sep + present
 print(logDir)
 
-if not os.path.exists(os.getcwd() + os.sep +  "weights" + os.sep + present):
+if not os.path.exists(os.getcwd() + os.sep + "weights" + os.sep + present):
     os.mkdir(logDir)
+
 
 # S is the source sequence length
 # T is the target sequence length
@@ -75,8 +75,8 @@ if not os.path.exists(os.getcwd() + os.sep +  "weights" + os.sep + present):
 # out = transformer_model(src, tgt)
 
 
-def train_(args, req_json, choice, preloaded_csv):
-# def main(args):
+def train_(args, req_json, choice, preloaded_csv, meta):
+    # def main(args):
     # input_window = 20  # number of input steps
     # output_window = 1  # number of prediction steps, in this model its fixed to one
     # batch_size = 10
@@ -89,22 +89,22 @@ def train_(args, req_json, choice, preloaded_csv):
     # web 版本的参数
     if req_json['port_id'] is not None:
         args.port_id = req_json['port_id']
-    if req_json['polution_id'] is not None:
-        args.polution_id = req_json['polution_id']
     if req_json['date_s'] is not None:
         args.date_s = req_json['date_s']
     if req_json['date_e'] is not None:
         args.date_e = req_json['date_e']
-    if req_json['dim'] is not None:
-        args.dim = req_json['dim']
     if req_json['company_id'] is not None:
         args.company_id = req_json['company_id']
+    args.dim = req_json['dim']
 
+    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = torch.device("cpu")
+    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device,
+                                                       preloaded_csv=preloaded_csv, meta=meta)
+    # 全为0的情况
+    if train_data is None:
+        return None
 
-
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device, preloaded_csv=preloaded_csv)
     model = TransAm().to(device)
 
     criterion = nn.MSELoss()
@@ -122,16 +122,17 @@ def train_(args, req_json, choice, preloaded_csv):
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
         if epoch % 10 == 0:
-            val_loss, res = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim, choice)
+            val_loss, res = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim,
+                                          choice)
             predict_future(model, val_data, 200, input_window)
-            save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
+            save_path = "weights" + os.sep + present + os.sep + "trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)
         else:
             val_loss = evaluate(model, val_data, criterion, input_window)
 
         print('-' * 89)
         print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.5f} '.format(epoch, (
-                    time.time() - epoch_start_time), val_loss))
+                time.time() - epoch_start_time), val_loss))
         print('-' * 89)
 
         if val_loss < best_val_loss:
@@ -151,30 +152,46 @@ def train_(args, req_json, choice, preloaded_csv):
     # print(out)
     # print(out.shape)
 
-
     # save_path = "weights/last_model.pth"
     # torch.save(model.state_dict(), save_path)
     # print("save successfully")
+
 
 # if __name__ == "__main__":
 def run_model(req_json, preloaded_csv):
     args = parse_args()
     # print(args)
-    res = []
     dim_names = ['concentration', 'amount']
     date_names = ['date_s_1', 'date_e_1', 'date_s_2', 'date_e_2']
+    # 非总览页面
+    if req_json['polution_id'] != '':
+        meta = 'single'
+        res = single_polution_method(req_json, preloaded_csv, args, dim_names, date_names, meta)
+        return res, meta
+    else:  # 总览页面
+        res = []
+        meta = 'all'
+        polution_ids = preloaded_csv['polution_id'].dropna().unique()
+        print(polution_ids)
+        for i in range(len(polution_ids)):
+            args.polution_id = polution_ids[i]
+            print('current polution_id: ', args.polution_id)
+            res.append(single_polution_method(req_json, preloaded_csv, args, dim_names, date_names, meta))
+        return res, meta
+
+    # main(args)
+
+
+def single_polution_method(req_json, preloaded_csv, args, dim_names, date_names, meta):
+    res = []
     for dim_name in dim_names:
         for i in range(0, len(date_names), 2):
             req_json['date_s'] = req_json[date_names[i]]
             req_json['date_e'] = req_json[date_names[i + 1]]
             req_json['dim'] = dim_name
             choice = i // 2 + 1
-            res.append(train_(args, req_json, choice, preloaded_csv=preloaded_csv))
+            res.append(train_(args, req_json, choice, preloaded_csv=preloaded_csv, meta=meta))
+            if res[-1] is None:
+                res = res[:-1]
 
     return res
-
-    # main(args)
-
-
-
-

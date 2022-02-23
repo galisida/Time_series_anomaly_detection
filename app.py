@@ -14,17 +14,23 @@ def index():
 
 
 preloaded_csv = read_csv('dataset/all_data.csv')
+preloaded_csv = preloaded_csv.fillna({'concentration': 0, 'amount': 0})
 
 
 @app.route('/run', methods=['POST'])
 def run():
-    res = run_model(json.loads(request.get_data(as_text=True)), preloaded_csv)
+    res, meta = run_model(json.loads(request.get_data(as_text=True)), preloaded_csv)
     # res = res.to_json(orient='records')
     # res = res.to_dict(orient='dict')
-    res = [r.to_dict() for r in res]
+    if meta == "single":
+        res = [r.to_dict() for r in res]
+    else:
+        for i in range(len(res)):
+            for j in range(len(res[i])):
+                res[i][j] = res[i][j].to_dict()
     resp = dict()
     resp['data'] = res
-    msg_json = {'msg': 'success', 'code': "200"}
+    msg_json = {'msg': 'success', 'code': "200", 'meta': meta}
     resp.update(msg_json)
     return resp
 

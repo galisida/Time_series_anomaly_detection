@@ -19,7 +19,7 @@ def create_inout_sequences(input_data, tw, output_window):
 
 
 # TODO(done): add input && output_window, device
-def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None):
+def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None, meta=None):
     # construct a littel toy dataset
     # time = np.arange(0, 400, 0.1)
     # amplitude = np.sin(time) + np.sin(time * 0.05) + np.sin(time * 0.12) * np.random.normal(-0.2, 0.2, len(time))
@@ -30,8 +30,11 @@ def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None
     from pandas import read_csv
     # series = read_csv('dataset/daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
     # series = read_csv('dataset/test.CSV')
-    if (args.port_id or args.polution_id or args.dim or args.date_s or args.date_e) is None:
+    if (args.port_id or args.date_s or args.date_e) is None:
         series = read_csv('dataset/test2.CSV')
+        print('running on test dataset!!!!!!!!!!!!!!!!!!!!!')
+        print('running on test dataset!!!!!!!!!!!!!!!!!!!!!')
+        print('running on test dataset!!!!!!!!!!!!!!!!!!!!!')
     else:
         # series = read_csv('dataset/all_data.csv')
         series = preloaded_csv
@@ -59,8 +62,14 @@ def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None
     series = series.sort_values(by='date')
     series.reset_index(drop=True, inplace=True)
     # series = read_csv('dataset/all_data.csv')
+    print('dateframe:')
     print(series)
-    series = series.fillna({'concentration': 0, 'amount': 0})
+
+    if len(series[args.dim].unique()) == 1:
+        print('all data are ', series[args.dim].unique())
+        if meta == 'all':
+            return None, None, None, None
+    # series = series.fillna({'concentration': 0, 'amount': 0})  # after preload
     timestamp = series['date']
     dim_name = args.dim
     if dim_name is not None:
@@ -74,7 +83,10 @@ def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None
     print("series.shape: ", series.shape)
     print('-----------------------------------------------')
 
-
+    print(series.to_numpy().shape)
+    if series.to_numpy().shape[0] == 0:
+        print('no data!')
+        return None, None, None, None
     # looks like normalizing input values curtial for the model
     scaler = MinMaxScaler(feature_range=(-1, 1))
     amplitude = scaler.fit_transform(series.to_numpy().reshape(-1, 1)).reshape(-1)
