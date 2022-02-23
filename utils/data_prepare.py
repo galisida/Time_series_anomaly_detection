@@ -19,7 +19,7 @@ def create_inout_sequences(input_data, tw, output_window):
 
 
 # TODO(done): add input && output_window, device
-def get_data(args, input_window, output_window, device='cpu'):
+def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None):
     # construct a littel toy dataset
     # time = np.arange(0, 400, 0.1)
     # amplitude = np.sin(time) + np.sin(time * 0.05) + np.sin(time * 0.12) * np.random.normal(-0.2, 0.2, len(time))
@@ -33,7 +33,8 @@ def get_data(args, input_window, output_window, device='cpu'):
     if (args.port_id or args.polution_id or args.dim or args.date_s or args.date_e) is None:
         series = read_csv('dataset/test2.CSV')
     else:
-        series = read_csv('dataset/all_data.csv')
+        # series = read_csv('dataset/all_data.csv')
+        series = preloaded_csv
         series['company_id'] = series['company_id'].astype('string')
         series['port_id'] = series['port_id'].astype('string')
         series['polution_id'] = series['polution_id'].astype('string')
@@ -45,9 +46,18 @@ def get_data(args, input_window, output_window, device='cpu'):
         series = series_polution_id[series_polution_id['company_id'].str.contains(args.company_id)]
         print('find company id.')
         # 1/2/2020 --> 日/月/年 -->2020年2月1日
-        series = series.loc[(series['date'] >= pd.to_datetime(args.date_s, format='%d/%m/%Y')) &
-                            (series['date'] <= pd.to_datetime(args.date_e, format='%d/%m/%Y'))]
+        st = pd.to_datetime(args.date_s, format='%d/%m/%Y')
+        data_s_ = str(st.day) + '/' + str(st.month) + '/' + str(st.year)
+        st_ = pd.to_datetime(data_s_, format='%d/%m/%Y')
 
+        ed = pd.to_datetime(args.date_e, format='%d/%m/%Y')
+        data_e_ = str(ed.day + 2) + '/' + str(ed.month) + '/' + str(ed.year)
+        ed_ = pd.to_datetime(data_e_, format='%d/%m/%Y')
+
+        series = series.loc[(series['date'] >= st_) &
+                            (series['date'] <= ed_)]
+    series = series.sort_values(by='date')
+    series.reset_index(drop=True, inplace=True)
     # series = read_csv('dataset/all_data.csv')
     print(series)
     series = series.fillna({'concentration': 0, 'amount': 0})

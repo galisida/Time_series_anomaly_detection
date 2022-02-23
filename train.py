@@ -1,3 +1,4 @@
+import copy
 import math
 import time
 import os
@@ -26,8 +27,9 @@ import wandb
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=85, help='Number of epochs to train.')
-    parser.add_argument('--lr', type=float, default=0.006, help='Initial learning rate.')
+    parser.add_argument('--epochs', type=int, default=10, help='Number of epochs to train.')
+    # parser.add_argument('--lr', type=float, default=0.0001, help='Initial learning rate.')
+    parser.add_argument('--lr', type=float, default=0.0001, help='Initial learning rate.')
     parser.add_argument('--nb_heads', type=int, default=8, help='Number of head attentions.')
     parser.add_argument('--dropout', type=float, default=0.1, help='Dropout rate.')
     parser.add_argument('--input_window', type=int, default=20, help='Number of input steps.')
@@ -73,7 +75,7 @@ if not os.path.exists(os.getcwd() + os.sep +  "weights" + os.sep + present):
 # out = transformer_model(src, tgt)
 
 
-def train_(args, req_json):
+def train_(args, req_json, choice, preloaded_csv):
 # def main(args):
     # input_window = 20  # number of input steps
     # output_window = 1  # number of prediction steps, in this model its fixed to one
@@ -102,7 +104,7 @@ def train_(args, req_json):
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device, preloaded_csv=preloaded_csv)
     model = TransAm().to(device)
 
     criterion = nn.MSELoss()
@@ -120,7 +122,7 @@ def train_(args, req_json):
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
         if epoch % 10 == 0:
-            val_loss, res = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim)
+            val_loss, res = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim, choice)
             predict_future(model, val_data, 200, input_window)
             save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)
@@ -155,9 +157,24 @@ def train_(args, req_json):
     # print("save successfully")
 
 # if __name__ == "__main__":
-def run_model(req_json):
+def run_model(req_json, preloaded_csv):
     args = parse_args()
     # print(args)
-    res = train_(args, req_json)
-    # main(args)
+    res = []
+    dim_names = ['concentration', 'amount']
+    date_names = ['date_s_1', 'date_e_1', 'date_s_2', 'date_e_2']
+    for dim_name in dim_names:
+        for i in range(0, len(date_names), 2):
+            req_json['date_s'] = req_json[date_names[i]]
+            req_json['date_e'] = req_json[date_names[i + 1]]
+            req_json['dim'] = dim_name
+            choice = i // 2 + 1
+            res.append(train_(args, req_json, choice, preloaded_csv=preloaded_csv))
+
     return res
+
+    # main(args)
+
+
+
+

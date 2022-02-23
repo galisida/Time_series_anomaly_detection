@@ -52,7 +52,7 @@ def main(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = TransAm().to(device).load_state_dict(torch.load(weight_path))
-    train_data, val_data, timestamp = get_data(args, input_window, output_window, device=device)
+    train_data, val_data, timestamp = get_data(args, input_window, output_window, device=device, preloaded_csv=None)
 
     criterion = nn.MSELoss()
 

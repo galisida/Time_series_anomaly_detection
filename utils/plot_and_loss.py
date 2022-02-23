@@ -6,7 +6,7 @@ from utils.data_prepare import get_batch
 import wandb
 
 
-def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim):
+def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, choice):
     eval_model.eval()
     total_loss = 0.
     # test_result = torch.Tensor(0)
@@ -54,7 +54,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
     if not os.path.exists("graph"):
         os.mkdir("graph")
-    plt.savefig('graph/transformer-epoch%d_%s.png' % (epoch, dim))
+    plt.savefig('graph/transformer-epoch%d_%s_date_%d.png' % (epoch, dim, choice))
     plt.close()
 
     return total_loss / i, res
