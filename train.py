@@ -95,6 +95,8 @@ def train_(args, req_json, choice, preloaded_csv, meta):
         args.date_e = req_json['date_e']
     if req_json['company_id'] is not None:
         args.company_id = req_json['company_id']
+    if req_json['polution_id'] is not None:
+        args.polution_id = req_json['polution_id']
     args.dim = req_json['dim']
 
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

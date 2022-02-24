@@ -43,11 +43,11 @@ def get_data(args, input_window, output_window, device='cpu', preloaded_csv=None
         series['polution_id'] = series['polution_id'].astype('string')
         series['date'] = pd.to_datetime(series['date'], format='%d/%m/%Y %H:%M:%S')
         series_port_id = series[series['port_id'].str.contains(args.port_id)]
-        print('find port id.')
+        print('find port id.', args.port_id)
         series_polution_id = series_port_id[series_port_id['polution_id'].str.contains(args.polution_id)]
-        print('find polution id.')
+        print('find polution id.', args.polution_id)
         series = series_polution_id[series_polution_id['company_id'].str.contains(args.company_id)]
-        print('find company id.')
+        print('find company id.', args.company_id)
         # 1/2/2020 --> 日/月/年 -->2020年2月1日
         st = pd.to_datetime(args.date_s, format='%d/%m/%Y')
         data_s_ = str(st.day) + '/' + str(st.month) + '/' + str(st.year)
