@@ -3,6 +3,7 @@ from train import *
 import json
 from flask_cors import CORS
 from pandas import read_csv
+from utils.adjust_res import *
 
 app = Flask(__name__)
 CORS(app)
@@ -19,7 +20,8 @@ preloaded_csv = preloaded_csv.fillna({'concentration': 0, 'amount': 0})
 
 @app.route('/run', methods=['POST'])
 def run():
-    res, meta = run_model(json.loads(request.get_data(as_text=True)), preloaded_csv)
+    req_json = json.loads(request.get_data(as_text=True))
+    res, meta = run_model(req_json, preloaded_csv)
     # res = res.to_json(orient='records')
     # res = res.to_dict(orient='dict')
     if meta == "single":
@@ -28,6 +30,13 @@ def run():
         for i in range(len(res)):
             for j in range(len(res[i])):
                 res[i][j] = res[i][j].to_dict()
+
+    # todo: adjust res check here
+    if meta == 'single':
+        res = adjust_res_for_single(res, preloaded_csv, req_json)
+    else:
+        # todo: adjust res for all polutions
+        pass
     resp = dict()
     resp['data'] = res
     msg_json = {'msg': 'success', 'code': "200", 'meta': meta}
