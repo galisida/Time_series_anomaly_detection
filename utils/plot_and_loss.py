@@ -9,8 +9,8 @@ import wandb
 def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, choice):
     eval_model.eval()
     total_loss = 0.
-    # test_result = torch.Tensor(0)
-    # truth = torch.Tensor(0)
+    test_result = torch.Tensor(0)
+    truth = torch.Tensor(0)
     with torch.no_grad():
         for i in range(0, len(data_source) - 1):
             data, target = get_batch(data_source, i, 1, input_window)
@@ -23,7 +23,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
             truth = torch.cat((truth, target[-1].view(-1).cpu()), 0)
 
     # test_result = test_result.cpu().numpy() -> no need to detach stuff..
-    len(test_result)
+    # len(test_result)
 
     # plt.plot(truth[:500], color="blue")
     # plt.plot(truth[:1000], color="blue")

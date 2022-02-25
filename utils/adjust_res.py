@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def adjust_res_for_single(data, preload_csv, req_json):
+def adjust_res_for_single(data, preload_csv, req_json, polution_id=None, meta=None):
     return_body = dict()
     print('data_len: ', len(data))
     print('data[0]: ', data[0])
@@ -95,7 +95,7 @@ def adjust_res_for_single(data, preload_csv, req_json):
     # 平均量损失
     average_amount_loss = np.average(date1_amount_loss_list)
     print('average_amount_loss: ', average_amount_loss)
-    # param4 ? 平均量损失较阈值
+    # param4 ? 平均排放量量损失较阈值
     date1_compare_amount_loss_with_threshold = average_amount_loss - req_json['threshold_amount_loss']
     return_body['date1_compare_amount_loss_with_threshold'] = date1_compare_amount_loss_with_threshold
 
@@ -261,4 +261,11 @@ def adjust_res_for_single(data, preload_csv, req_json):
     print(relative_cpn)
     return_body['relative_cpn'] = relative_cpn
 
-    return return_body
+    # param24 污染物id
+    return_body['polution_id'] = req_json['polution_id']
+    if return_body['polution_id'] == '':
+        return_body['polution_id'] = polution_id
+
+
+    return return_body, date1_concentration_warning_tags_count, date1_amount_warning_tags_count, \
+           len(date2_concentration_warning_tags), len(date2_amount_warning_tags)
