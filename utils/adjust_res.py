@@ -3,7 +3,10 @@ import numpy as np
 
 def adjust_res_for_single(data, preload_csv, req_json, polution_id=None, meta=None):
     return_body = dict()
+    if len(data) == 0:
+        return None, None, None, None, None
     print('data_len: ', len(data))
+    print('data: ', data)
     print('data[0]: ', data[0])
     print('data[0]的date: ', data[0]['date'])
     print('data[0]的loss: ', data[0]['loss'])
