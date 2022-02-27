@@ -57,6 +57,10 @@ def adjust_res_for_single(data, preload_csv, req_json, polution_id=None, meta=No
         date2_amount_test_list.append(data[3]['test_result'][i])
         date2_amount_loss_list.append(data[3]['loss'][i])
 
+    # param
+    return_body['date1'] = date1_date_list
+    return_body['date2'] = date2_date_list
+
     date1_date_list = np.array(date1_date_list)
     date1_concentration_truth_list = np.array(date1_concentration_truth_list)
     date1_concentration_test_list = np.array(date1_concentration_test_list)
