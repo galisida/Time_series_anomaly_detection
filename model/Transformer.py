@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from model.PositionalEncoding import PositionalEncoding
 
+
 class TransAm(nn.Module):
     def __init__(self, feature_size=250, num_layers=1, dropout=0.1):
         super(TransAm, self).__init__()
@@ -15,6 +16,7 @@ class TransAm(nn.Module):
         self.transformer_decoder = nn.TransformerEncoder(self.decoder_layer, num_layers=num_layers)
         self.decoder1 = nn.Linear(feature_size, feature_size // 2 + 1)
         self.decoder2 = nn.Linear(feature_size // 2 + 1, 1)
+        self.decoder = nn.Linear(feature_size, 1)  # direct linear layer
         self.l_relu = nn.LeakyReLU()
         self.init_weights()
 
@@ -37,6 +39,8 @@ class TransAm(nn.Module):
         output = self.decoder1(output)
         output = self.l_relu(output)
         output = self.decoder2(output)
+        # output = self.decoder(output)
+        # output = self.l_relu(output)
         return output
 
     def _generate_square_subsequent_mask(self, sz):

@@ -32,9 +32,14 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     truth = truth.reshape(-1)
     test_result = test_result.reshape(-1)
 
-    plt.plot(truth, color="blue")
-    plt.plot(test_result, color="red")
+    date_list = timestamp.values[:len(truth)]
+    plt.figure(figsize=(10, 8))
+    l1, = plt.plot(date_list, truth, color="blue")
+    l2, = plt.plot(date_list, test_result, color="red")
+    plt.xticks(rotation=45)
 
+    # plt.legend('origin_sequence', 'reconstructed_sequence')
+    plt.legend(handles=[l1, l2], labels=['origin_sequence', 'reconstructed_sequence'], loc='upper right')
 
     # plt.plot(test_result - truth, color="green")
     # wandb.log({"test_result - truth": (test_result - truth)})

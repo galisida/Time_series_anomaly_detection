@@ -27,12 +27,13 @@ import wandb
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=10, help='Number of epochs to train.')
+    parser.add_argument('--epochs', type=int, default=30, help='Number of epochs to train.')
     # parser.add_argument('--lr', type=float, default=0.0001, help='Initial learning rate.')
+    # parser.add_argument('--lr', type=float, default=0.00001, help='Initial learning rate.') # seems not good
     parser.add_argument('--lr', type=float, default=0.0001, help='Initial learning rate.')
     parser.add_argument('--nb_heads', type=int, default=8, help='Number of head attentions.')
     parser.add_argument('--dropout', type=float, default=0.1, help='Dropout rate.')
-    parser.add_argument('--input_window', type=int, default=5, help='Number of input steps.')
+    parser.add_argument('--input_window', type=int, default=20, help='Number of input steps.')
     parser.add_argument('--output_window', type=int, default=1, help='Number of prediction steps, '
                                                                      'in this model its fixed to one.')
     parser.add_argument('--batch_size', type=int, default=64, help='Number of batch_size.')
