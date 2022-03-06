@@ -3,10 +3,10 @@ import torch
 import os
 from matplotlib import pyplot as plt
 from utils.data_prepare import get_batch
-import wandb
+# import wandb
 
 
-def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, choice):
+def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, choice, lr):
     eval_model.eval()
     total_loss = 0.
     test_result = torch.Tensor(0)
@@ -42,14 +42,18 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     plt.legend(handles=[l1, l2], labels=['origin_sequence', 'reconstructed_sequence'], loc='upper right')
 
     # plt.plot(test_result - truth, color="green")
-    # wandb.log({"test_result - truth": (test_result - truth)})
+    # wandb.init(project="my-project")
+    # # wandb.log({'Origin_sequence': truth})
+    # # wandb.log({'Reconstructed_sequence': test_result})
+    # wandb.log({'Origin_sequence': truth, 'Reconstructed_sequence': test_result, "Abnormal_value": (test_result - truth)})
 
     # save loss
     print("loss shape: ", (test_result - truth).shape)
     res = pd.DataFrame({"date": timestamp.values[:len(truth)], "truth": truth, "test_result": test_result, "loss": test_result - truth})
     if os.path.exists("res") == False:
         os.mkdir("res")
-    res_csv_path = "res/test_loss_" + str(dim) + ".csv"
+    # res_csv_path = "res/test_loss_" + str(dim) + "_" + "epoch" + str(epoch) + "_" + str(lr) + ".csv"
+    res_csv_path = "res/epoch%s_lr%s_inputWindow%s_optimizer_3.csv" % (str(epoch), str(lr), str(input_window))
     with open(res_csv_path, "w") as f:
         res.to_csv(res_csv_path)
 
