@@ -30,37 +30,17 @@ def get_data(args, input_window, output_window, device='cpu'):
     from pandas import read_csv
     # series = read_csv('dataset/daily-min-temperatures.csv', header=0, index_col=0, parse_dates=True, squeeze=True)
     # series = read_csv('dataset/test.CSV')
-    if (args.port_id or args.polution_id or args.dim or args.date_s or args.date_e) is None:
-        series = read_csv('dataset/test2.CSV')
-    else:
-        series = read_csv('dataset/all_data.csv')
-        series['company_id'] = series['company_id'].astype('string')
-        series['port_id'] = series['port_id'].astype('string')
-        series['polution_id'] = series['polution_id'].astype('string')
-        series['date'] = pd.to_datetime(series['date'], format='%d/%m/%Y %H:%M:%S')
-        series_port_id = series[series['port_id'].str.contains(args.port_id)]
-        print('find port id.')
-        series_polution_id = series_port_id[series_port_id['polution_id'].str.contains(args.polution_id)]
-        print('find polution id.')
-        series = series_polution_id[series_polution_id['company_id'].str.contains(args.company_id)]
-        print('find company id.')
-        # 1/2/2020 --> 日/月/年 -->2020年2月1日
-        series = series.loc[(series['date'] >= pd.to_datetime(args.date_s, format='%d/%m/%Y')) &
-                            (series['date'] <= pd.to_datetime(args.date_e, format='%d/%m/%Y'))]
-
+    series = read_csv('dataset/cpu4.csv')
     # series = read_csv('dataset/all_data.csv')
-    print(series)
-    series = series.fillna({'concentration': 0, 'amount': 0})
-    timestamp = series['date']
+    print('df.head():\n', series.head())
+    timestamp = series['timestamp']
     dim_name = args.dim
     if dim_name is not None:
         series = series[dim_name]
         print("dim_name: ", dim_name)
-    else:
-        series = series['concentration']
-    # series = series['amount']
+    series = series['value']
     print('-----------------------------------------------')
-    print("series: ", series)
+    print("series_value: ", series[:10])
     print("series.shape: ", series.shape)
     print('-----------------------------------------------')
 
@@ -77,7 +57,7 @@ def get_data(args, input_window, output_window, device='cpu'):
 
     # convert our train data into a pytorch train tensor
     train_tensor = torch.FloatTensor(train_data).view(-1)
-    # todo: add comment..
+
     train_sequence = create_inout_sequences(train_data, input_window, output_window)
     train_sequence = train_sequence[:-output_window]
 

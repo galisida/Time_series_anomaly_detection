@@ -3,7 +3,7 @@ import torch
 import os
 from matplotlib import pyplot as plt
 from utils.data_prepare import get_batch
-import wandb
+# import wandb
 
 
 def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim):
@@ -23,7 +23,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
             truth = torch.cat((truth, target[-1].view(-1).cpu()), 0)
 
     # test_result = test_result.cpu().numpy() -> no need to detach stuff..
-    len(test_result)
+    # len(test_result)
 
     # plt.plot(truth[:500], color="blue")
     # plt.plot(truth[:1000], color="blue")
@@ -37,7 +37,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
 
     # plt.plot(test_result - truth, color="green")
-    wandb.log({"test_result - truth": (test_result - truth)})
+    # wandb.log({"test_result - truth": (test_result - truth)})
 
     # save loss
     print("loss shape: ", (test_result - truth).shape)

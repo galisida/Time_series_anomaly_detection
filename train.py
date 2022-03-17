@@ -13,15 +13,15 @@ from utils.reconstruct import predict_future
 from utils.eval import evaluate
 
 
-import wandb
+# import wandb
 
-wandb.init(project="my-test-project", entity="cocoshe")
+# wandb.init(project="my-test-project", entity="cocoshe")
 
-wandb.config = {
-  "learning_rate": 0.006,
-  "epochs": 100,
-  "batch_size": 64
-}
+# wandb.config = {
+#   "learning_rate": 0.006,
+#   "epochs": 100,
+#   "batch_size": 64
+# }
 
 
 def parse_args():
