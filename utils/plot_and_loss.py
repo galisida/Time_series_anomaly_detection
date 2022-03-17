@@ -3,10 +3,13 @@ import torch
 import os
 from matplotlib import pyplot as plt
 from utils.data_prepare import get_batch
+import numpy as np
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+
 # import wandb
 
 
-def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim):
+def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, threshold=None):
     eval_model.eval()
     total_loss = 0.
     # test_result = torch.Tensor(0)
@@ -48,6 +51,21 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     with open(res_csv_path, "w") as f:
         res.to_csv(res_csv_path)
 
+    loss_value = np.abs(test_result - truth)
+    desc_idx = loss_value.argsort()[::-1]
+    threshold = desc_idx[250]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
+    pred = np.where(test_result - truth > threshold, 1, 0)
+    label = pd.read_csv('dataset/cpu4.csv')['label'].values
+    exp_precision = cal_precision(pred, label)
+    exp_recall = cal_recall(pred, label)
+    exp_acc = cal_acc(pred, label)
+    exp_f1 = cal_f1(pred, label)
+    print('precision: ', exp_precision, ' recall: ', exp_recall, ' acc: ', exp_acc, ' f1: ', exp_f1)
+    # wandb.log({"precision": cal_precision(pred, label), "recall": cal_recall(pred, label), "acc": cal_acc(pred, label), "f1": cal_f1(pred, label)})
+    exp_out = pd.DataFrame({'precision': cal_precision(pred, label), 'recall': cal_recall(pred, label), 'acc': cal_acc(pred, label), 'f1': cal_f1(pred, label)})
+    exp_out_path = "exp/exp_out_" + str(epoch) + ".csv"
+    exp_out.to_csv(exp_out_path)
+
     plt.grid(True, which='both')
     plt.axhline(y=0, color='k')
     # plt.xticks(ticks=range(len(truth)), labels=timestamp.values[:len(truth)], rotation=90)
@@ -58,3 +76,23 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     plt.close()
 
     return total_loss / i
+
+
+def cal_precision(pred, label):
+    precision = precision_score(label, pred)
+    return precision
+
+
+def cal_recall(pred, label):
+    recall = recall_score(label, pred)
+    return recall
+
+
+def cal_acc(pred, label):
+    acc = accuracy_score(label, pred)
+    return acc
+
+
+def cal_f1(pred, label):
+    f1 = f1_score(label, pred)
+    return f1
