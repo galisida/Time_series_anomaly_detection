@@ -15,7 +15,7 @@ def create_inout_sequences(input_data, tw, output_window):
         train_seq = input_data[i:i + tw]
         train_label = input_data[i + output_window:i + tw + output_window]
         inout_seq.append((train_seq, train_label))
-    return torch.FloatTensor(inout_seq)
+    return torch.FloatTensor(np.array(inout_seq))
 
 
 # TODO(done): add input && output_window, device

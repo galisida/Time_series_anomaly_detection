@@ -1,0 +1,38 @@
+
+D:\PythonProject\Time_series_anomaly_detection\weights\2022_03_18 00_35_39
+train.py:87: DtypeWarning: Columns (1,2,3) have mixed types.Specify dtype option on import or set low_memory=False.
+  train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+find port id.
+find polution id.
+find company id.
+Traceback (most recent call last):
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\arrays\datetimelike.py", line 1008, in _cmp_method
+    other = self._validate_comparison_value(other)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\arrays\datetimelike.py", line 546, in _validate_comparison_value
+    raise InvalidComparison(other)
+pandas.core.arrays.datetimelike.InvalidComparison: None
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "train.py", line 140, in <module>
+    main(args)
+  File "train.py", line 87, in main
+    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+  File "D:\PythonProject\Time_series_anomaly_detection\utils\data_prepare.py", line 48, in get_data
+    series = series.loc[(series['date'] >= pd.to_datetime(args.date_s, format='%d/%m/%Y')) &
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\ops\common.py", line 69, in new_method
+    return method(self, other)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\arraylike.py", line 52, in __ge__
+    return self._cmp_method(other, operator.ge)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\series.py", line 5502, in _cmp_method
+    res_values = ops.comparison_op(lvalues, rvalues, op)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\ops\array_ops.py", line 270, in comparison_op
+    res_values = op(lvalues, rvalues)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\ops\common.py", line 69, in new_method
+    return method(self, other)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\arraylike.py", line 52, in __ge__
+    return self._cmp_method(other, operator.ge)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\arrays\datetimelike.py", line 1010, in _cmp_method
+    return invalid_comparison(self, other, op)
+  File "D:\miniconda\envs\pytorch\lib\site-packages\pandas\core\ops\invalid.py", line 34, in invalid_comparison
+    raise TypeError(f"Invalid comparison between dtype={left.dtype} and {typ}")
+TypeError: Invalid comparison between dtype=datetime64[ns] and NoneType

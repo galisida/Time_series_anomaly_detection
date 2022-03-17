@@ -20,8 +20,7 @@ python3 ./train.py
 
 ```shell
 # with args:
-python train.py --port_id 64000000000600100000 --polution_id w00000 --company_id 172
-80000089583 --dim concentration --date_s 1/1/2020 --date_e 1/2/2020
+python train.py --port_id 64000000000600100000 --polution_id w00000 --company_id 17280000089583 --dim concentration --date_s 1/1/2020 --date_e 1/2/2020
 
 ```
 
