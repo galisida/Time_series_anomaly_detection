@@ -65,7 +65,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
     loss_value = np.abs(test_result - truth)
     desc_idx = loss_value.argsort()[::-1]
-    threshold = loss_value[desc_idx[300]]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
+    threshold = loss_value[desc_idx[209]]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
     print('---------------------------------')
     print("threshold: ", threshold)
     print('---------------------------------')
