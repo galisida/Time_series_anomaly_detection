@@ -11,6 +11,13 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 
 def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, threshold=None):
     eval_model.eval()
+    # print('---------------------------------')
+    # print('data_source shape:', data_source.shape)
+    # print('data_source[[0]]:', data_source[[0]].shape)
+    data_source = torch.cat((data_source[[0]], data_source, data_source[[-1]]), 0)
+
+
+    # data_source = np.concentrate(data_source[])
     total_loss = 0.
     # test_result = torch.Tensor(0)
     # truth = torch.Tensor(0)
@@ -20,6 +27,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
             output = eval_model(data)
             if i == 0:
                 test_result = torch.cat((output[0].view(-1), output[:-1].view(-1).cpu()), 0)
+                # test_result = torch.cat((output[0].view(-1), test_result.view(-1).cpu()), 0)
                 truth = data.view(-1)
             total_loss += criterion(output, target).item()
             test_result = torch.cat((test_result, output[-1].view(-1).cpu()), 0)
@@ -30,6 +38,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
     # plt.plot(truth[:500], color="blue")
     # plt.plot(truth[:1000], color="blue")
+    # test_result = torch.cat((test_result.view(-1).cpu(), test_result[-1].view(-1)), 0)
     truth = scaler.inverse_transform(truth.reshape(-1, 1))
     test_result = scaler.inverse_transform(test_result.reshape(-1, 1))
     truth = truth.reshape(-1)
@@ -43,6 +52,9 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     # wandb.log({"test_result - truth": (test_result - truth)})
 
     # save loss
+    print('test_result[0].shape, type', test_result[0].shape, test_result[0].dtype)
+    print('test_result.shape, type', test_result.shape, test_result.dtype)
+    # test_result = torch.cat((test_result[0], test_result), 0)
     print("loss shape: ", (test_result - truth).shape)
     res = pd.DataFrame({"date": timestamp.values[:len(truth)], "truth": truth, "test_result": test_result, "loss": test_result - truth})
     if os.path.exists("res") == False:
@@ -53,7 +65,10 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
     loss_value = np.abs(test_result - truth)
     desc_idx = loss_value.argsort()[::-1]
-    threshold = desc_idx[250]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
+    threshold = loss_value[desc_idx[300]]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
+    print('---------------------------------')
+    print("threshold: ", threshold)
+    print('---------------------------------')
     pred = np.where(test_result - truth > threshold, 1, 0)
     label = pd.read_csv('dataset/cpu4.csv')['label'].values
     exp_precision = cal_precision(pred, label)
@@ -62,7 +77,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     exp_f1 = cal_f1(pred, label)
     print('precision: ', exp_precision, ' recall: ', exp_recall, ' acc: ', exp_acc, ' f1: ', exp_f1)
     # wandb.log({"precision": cal_precision(pred, label), "recall": cal_recall(pred, label), "acc": cal_acc(pred, label), "f1": cal_f1(pred, label)})
-    exp_out = pd.DataFrame({'precision': cal_precision(pred, label), 'recall': cal_recall(pred, label), 'acc': cal_acc(pred, label), 'f1': cal_f1(pred, label)})
+    exp_out = pd.DataFrame({'precision': [cal_precision(pred, label)], 'recall': [cal_recall(pred, label)], 'acc': [cal_acc(pred, label)], 'f1': [cal_f1(pred, label)]})
     exp_out_path = "exp/exp_out_" + str(epoch) + ".csv"
     exp_out.to_csv(exp_out_path)
 
