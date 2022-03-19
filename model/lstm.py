@@ -5,6 +5,7 @@ import torch.nn as nn
 class LSTM(nn.Module):
     def __init__(self, input_size=1, hidden_size=128, output_size=1, num_layers=1):
         super(LSTM, self).__init__()
+        self.model_type = 'lstm'
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.lstm = nn.LSTM(input_size, hidden_size, num_layers)

@@ -10,6 +10,7 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 
 
 def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, timestamp, scaler, dim, threshold=None):
+    model_type = eval_model.model_type
     eval_model.eval()
     # print('---------------------------------')
     # print('data_source shape:', data_source.shape)
@@ -59,13 +60,14 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     res = pd.DataFrame({"date": timestamp.values[:len(truth)], "truth": truth, "test_result": test_result, "loss": test_result - truth})
     if os.path.exists("res") == False:
         os.mkdir("res")
-    res_csv_path = "res/test_loss_" + str(dim) + ".csv"
+    # res_csv_path = "res/test_loss_" + str(dim) + ".csv"
+    res_csv_path = "res/test_loss_" + model_type + ".csv"
     with open(res_csv_path, "w") as f:
         res.to_csv(res_csv_path)
 
     loss_value = np.abs(test_result - truth)
     desc_idx = loss_value.argsort()[::-1]
-    threshold = loss_value[desc_idx[209]]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
+    threshold = loss_value[desc_idx[1000]]  # todo:怎么找阈值？能自适应吗？统计方法？要好好想想
     print('---------------------------------')
     print("threshold: ", threshold)
     print('---------------------------------')
@@ -78,7 +80,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
     print('precision: ', exp_precision, ' recall: ', exp_recall, ' acc: ', exp_acc, ' f1: ', exp_f1)
     # wandb.log({"precision": cal_precision(pred, label), "recall": cal_recall(pred, label), "acc": cal_acc(pred, label), "f1": cal_f1(pred, label)})
     exp_out = pd.DataFrame({'precision': [cal_precision(pred, label)], 'recall': [cal_recall(pred, label)], 'acc': [cal_acc(pred, label)], 'f1': [cal_f1(pred, label)]})
-    exp_out_path = "exp/exp_out_" + str(epoch) + ".csv"
+    exp_out_path = "exp/exp_out_" + str(epoch) + " model_" + model_type + ".csv"
     exp_out.to_csv(exp_out_path)
 
     plt.grid(True, which='both')
@@ -87,7 +89,7 @@ def plot_and_loss(eval_model, data_source, epoch, criterion, input_window, times
 
     if not os.path.exists("graph"):
         os.mkdir("graph")
-    plt.savefig('graph/transformer-epoch%d_%s.png' % (epoch, dim))
+    plt.savefig('graph/transformer-epoch%d_%s_%s.png' % (epoch, dim, model_type))
     plt.close()
 
     return total_loss / i

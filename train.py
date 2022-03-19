@@ -11,6 +11,7 @@ from utils.train import train
 from utils.plot_and_loss import plot_and_loss
 from utils.reconstruct import predict_future
 from utils.eval import evaluate
+from model.lstm import LSTM
 
 
 # import wandb
@@ -30,12 +31,13 @@ def parse_args():
     parser.add_argument('--lr', type=float, default=0.001, help='Initial learning rate.')
     parser.add_argument('--nb_heads', type=int, default=8, help='Number of head attentions.')
     parser.add_argument('--dropout', type=float, default=0.1, help='Dropout rate.')
-    parser.add_argument('--input_window', type=int, default=1000, help='Number of input steps.')
+    parser.add_argument('--input_window', type=int, default=100, help='Number of input steps.')
     parser.add_argument('--output_window', type=int, default=1, help='Number of prediction steps, '
                                                                      'in this model its fixed to one.')
     parser.add_argument('--batch_size', type=int, default=64, help='Number of batch_size.')
-    parser.add_argument('--model', type=str, default="weights/best_model.pth", help='Load model path.(default: '
+    parser.add_argument('--weight', type=str, default="weights/best_model.pth", help='Load weight path.(default: '
                                                                                     'weights/best_model.pth)')
+    parser.add_argument('--model', type=str, default='ts', help='Wanna run which model?')
 
     parser.add_argument('--port_id', type=str, default=None, help='port_id.')
     parser.add_argument('--polution_id', type=str, default=None, help='polution_id.')
@@ -82,11 +84,15 @@ def main(args):
     batch_size = args.batch_size
     epochs = args.epochs
     lr = args.lr
+    choice_model = args.model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
-    model = TransAm().to(device)
-
+    if choice_model == 'ts':
+        model = TransAm().to(device)
+    elif choice_model == 'lstm':
+        model = LSTM().to(device)
+    print('model_type: ', model.model_type)
     criterion = nn.MSELoss()
     # lr = 0.005
     # optimizer = torch.optim.SGD(model.parameters(), lr=lr)
