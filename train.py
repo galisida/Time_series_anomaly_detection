@@ -14,9 +14,8 @@ from utils.eval import evaluate
 from model.lstm import LSTM
 
 
-# import wandb
+import wandb
 
-# wandb.init(project="my-test-project", entity="cocoshe")
 
 # wandb.config = {
 #   "learning_rate": 0.006,
@@ -87,13 +86,17 @@ def main(args):
     choice_model = args.model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+    # train_data, val_data, timestamp, scaler = get_data(args, input_window, output_window, device=device)
+    train_data, val_data, scaler, labels = get_data(args, input_window, output_window, device=device)
     if choice_model == 'ts':
-        model = TransAm().to(device)
+        model = TransAm(feature_size=train_data.shape[-1]).to(device)
     elif choice_model == 'lstm':
-        model = LSTM().to(device)
+        model = LSTM(input_size=train_data.shape[-1], output_size=train_data.shape[-1]).to(device)
     print('model_type: ', model.model_type)
     criterion = nn.MSELoss()
+
+    wandb.init(project="ts-abnormal-detection", name=model.model_type)
+
     # lr = 0.005
     # optimizer = torch.optim.SGD(model.parameters(), lr=lr)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
@@ -108,7 +111,8 @@ def main(args):
         train(train_data, input_window, model, optimizer, criterion, scheduler, epoch, batch_size)
 
         if epoch % 1 == 0:
-            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim)
+            # val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, timestamp, scaler, args.dim)
+            val_loss = plot_and_loss(model, val_data, epoch, criterion, input_window, scaler, args.dim, labels)
             predict_future(model, val_data, 200, input_window)
             save_path = "weights" + os.sep + present + os.sep +"trained-for-" + str(epoch) + "-epoch.pth"
             torch.save(model.state_dict(), save_path)

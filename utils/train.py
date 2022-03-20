@@ -2,12 +2,9 @@ import math
 import time
 
 import torch
-# import wandb
-
 from utils.data_prepare import get_batch
 
 
-# TODO(done): 实例化model并传入, optimizer, criterion, scheduler, epoch, batch_size
 def train(train_data, input_window, model, optimizer, criterion, scheduler, epoch=100, batch_size=10):
     model.train()  # Turn on the train mode \o/
     total_loss = 0.
@@ -15,6 +12,7 @@ def train(train_data, input_window, model, optimizer, criterion, scheduler, epoc
 
     for batch, i in enumerate(range(0, len(train_data) - 1, batch_size)):
         data, targets = get_batch(train_data, i, batch_size, input_window)
+        # print('data:----', data.shape)
         optimizer.zero_grad()
         output = model(data)
         loss = criterion(output, targets)
